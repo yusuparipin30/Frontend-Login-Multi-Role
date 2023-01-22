@@ -65,7 +65,7 @@ const Login = () => {
                                     <div className="control">
                                         {/*16 tambah type ="submit"*/}
                                         <button type="submit" className="button is-success is-fullwidth">
-                                            {isLoading ? 'Loading...' : 'Login'}
+                                            {isLoading ? "Loading..." : "Login"}
                                         </button>
                                     </div>
                                 </div>
@@ -78,4 +78,4 @@ const Login = () => {
     )
 }
 
-export default Login
+export default Login;

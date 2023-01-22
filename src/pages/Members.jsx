@@ -1,13 +1,12 @@
 import React, {useEffect} from "react";
 import Layout from "./Layout";
-import Welcome from "../components/Welcome";
-//1.memprotect
+import MemberList from "../components/MemberList";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { getMe } from "../features/authSlice";
 
-const Dashboard = () => {
-    //2
+
+const Member = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const {isError} = useSelector((state) => state.auth);
@@ -23,12 +22,11 @@ const Dashboard = () => {
             navigate("/");
         }
     },[isError, navigate]);
-
     return (
         <Layout>
-            <Welcome/>
+            <MemberList/>
         </Layout>
     );
 };
 
-export default Dashboard;
+export default Member;

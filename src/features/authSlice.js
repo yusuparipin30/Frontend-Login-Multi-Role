@@ -18,17 +18,35 @@ export const LoginUser = createAsyncThunk("user/LoginUser",async(user, thunkAPI)
     try {
         const response = await axios.post('http://localhost:5000/login', {
             email: user.email,
-            paddword: user.password
+            password: user.password
         });
-        return response.data 
+        return response.data;
     } catch (error) {
         if(error.response){
              //7.cek respon errornya dan ambil msg dari backend
-            const message = error.response.data.msg
+            const message = error.response.data.msg;
             return thunkAPI.rejectWithValue(message);
         }
     }
 });
+
+export const getMe = createAsyncThunk("user/getMe",async(_, thunkAPI) => {
+    try {
+        const response = await axios.get('http://localhost:5000/me');
+        return response.data;
+    } catch (error) {
+        if(error.response){
+             //7.cek respon errornya dan ambil msg dari backend
+            const message = error.response.data.msg;
+            return thunkAPI.rejectWithValue(message);
+        }
+    }
+});
+
+export const LogOut = createAsyncThunk("user/LogOut",async() => {
+        await axios.delete('http://localhost:5000/logout');
+});
+
 
 
 //4.
@@ -61,6 +79,28 @@ export const authSlice = createSlice({
             state.isError = true;
             state.message = action.payload;
         })
+
+        //get user login
+        builder.addCase(getMe.pending,(state) =>{
+            // disaat pending maka set loadingnya menjadi true
+            state.isLoading = true;
+        });
+        //jika berhasil maka ambil statenya dan action
+        builder.addCase(getMe.fulfilled, (state, action) => {
+            //11. jika berhasil set loadingnya menjadi false
+            state.isLoading = false;
+            state.isSuccess = true;
+            // masukan state usernya dan ambil datanya dari action.payload, 
+            //karena kita punya data di dlm payloadnya yg di return dr return response.data 
+            state.user = action.payload;
+        });
+        //disaat terjadi error, rejected artinya terdapat error, 
+        builder.addCase(getMe.rejected, (state, action) => {
+            state.isLoading = false;
+            state.isError = true;
+            state.message = action.payload;
+        })
+
     }
 });
 

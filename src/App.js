@@ -2,7 +2,7 @@ import {BrowserRouter, Routes, Route} from "react-router-dom";
 import Dashboard from "./pages/Dashboard";
 import Login from "./components/Login";
 import Users from "./pages/Users";
-import Member from "./pages/Member";
+import Members from "./pages/Members";
 import AddUser from "./pages/AddUser";
 import EditUser from "./pages/EditUser";
 import AddMember from "./pages/AddMember";
@@ -18,15 +18,12 @@ function App() {
           <Route path="/users" element={<Users/>}/>
           <Route path="/users/add" element={<AddUser/>}/>
           <Route path="/users/edit/:id" element={<EditUser/>}/>
-          <Route path="/member" element={<Member/>}/>
-          <Route path="/member/add" element={<AddMember/>}/>
-          <Route path="/member/edit/:id" element={<EditMember/>}/>
-
-
+          <Route path="/members" element={<Members/>}/>
+          <Route path="/members/add" element={<AddMember/>}/>
+          <Route path="/members/edit/:id" element={<EditMember/>}/> 
         </Routes>
       </BrowserRouter>
     </div>
   );
 };
-
 export default App;
